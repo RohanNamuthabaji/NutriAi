@@ -139,11 +139,9 @@ function selectGoal(el, val) {
 function selectPref(el, val) {
   document.querySelectorAll('.pref-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
-  if (value === "Mixed") {
-  document.getElementById('pref').value = "Non-Vegetarian";
-} else {
-  document.getElementById('pref').value = value;
-}
+
+  document.getElementById('pref').value = val;
+
   document.getElementById('prefErr').classList.remove('show');
 }
 function selectActivity(el, val) {
