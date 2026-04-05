@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="NutriAI — AI-powered personalized diet planner. Get a custom 7-day meal plan, BMI analysis, exercise guide and health tips."/>
+  <meta name="keywords" content="diet planner, nutrition, BMI calculator, meal plan, fitness, weight loss"/>
+  <meta name="author" content="NutriAI"/>
+  <meta property="og:title" content="NutriAI — Smart Diet Planner"/>
+  <meta property="og:description" content="Get your personalized 7-day diet plan powered by AI in seconds."/>
+  <meta property="og:type" content="website"/>
+  <title>NutriAI — AI-Powered Smart Diet Planner</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a class="logo" href="#">
+      <div class="logo-icon">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="14" fill="url(#logoGrad)"/>
+          <path d="M16 8 C13 8 11 11 11 14 C11 17 13 19 16 19 C19 19 21 17 21 14 C21 11 19 8 16 8Z" fill="white" opacity="0.95"/>
+          <path d="M16 19 C16 19 11.5 21 10.5 25 H21.5 C20.5 21 16 19 16 19Z" fill="white" opacity="0.75"/>
+          <circle cx="22" cy="11" r="4" fill="#fbbf24" opacity="0.95"/>
+          <path d="M22 8.5V13.5M19.5 11H24.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#0f4c2a"/>
+              <stop offset="60%" stop-color="#1a7a45"/>
+              <stop offset="100%" stop-color="#0d9488"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">NutriAI</span>
+        <span class="logo-tagline">Smart Diet Planner</span>
+      </div>
+    </a>
+    <div class="nav-center">
+      <button class="nav-tab active" id="tab-generate" onclick="switchTab('generate')">Generate Plan</button>
+      <button class="nav-tab" id="tab-saved" onclick="switchTab('saved')">Saved Plans</button>
+      <button class="nav-tab" id="tab-tracker" onclick="switchTab('tracker')">Water Tracker</button>
+      <button class="nav-tab" id="tab-about" onclick="switchTab('about')">About</button>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">
+        <span id="themeIcon">🌙</span>
+      </button>
+      <span class="nav-badge">✦ AI Powered</span>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button onclick="switchTab('generate');toggleMobileMenu()">Generate Plan</button>
+    <button onclick="switchTab('saved');toggleMobileMenu()">Saved Plans</button>
+    <button onclick="switchTab('tracker');toggleMobileMenu()">Water Tracker</button>
+    <button onclick="switchTab('about');toggleMobileMenu()">About</button>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="orb orb3"></div>
+      <div class="orb orb4"></div>
+      <div class="hero-grid-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-pill">
+        <span class="pill-dot"></span>
+        Personalised · Science-Backed · Free
+      </div>
+      <h1>Eat Smart,<br>Live <span class="accent">Vibrant</span></h1>
+      <p class="hero-sub">Your AI-powered nutrition coach — get a custom 7-day meal plan, BMI analysis, exercise guide, and health insights in seconds.</p>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-n" data-count="7">0</div><div class="hstat-l">Day Plan</div></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><div class="hstat-n" data-count="6">0</div><div class="hstat-l">Exercises</div></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><div class="hstat-n" data-count="6">0</div><div class="hstat-l">Health Tips</div></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><div class="hstat-n">100%</div><div class="hstat-l">Personalised</div></div>
+      </div>
+      <button class="btn-hero-cta" onclick="document.getElementById('main').scrollIntoView({behavior:'smooth'})">
+        Get My Free Plan
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <svg class="hero-wave" viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,35 C360,70 1080,0 1440,35 L1440,70 L0,70 Z" class="wave-fill"/>
+    </svg>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main id="main">
+
+    <!-- GENERATE SECTION -->
+    <section class="page-section active" id="sec-generate">
+
+      <!-- FORM CARD -->
+      <div class="card form-card" id="formCard">
+        <div class="card-header gradient-header">
+          <div class="card-header-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="white" stroke-width="2" stroke-linecap="round"/><rect x="9" y="3" width="6" height="4" rx="1" stroke="white" stroke-width="2"/><path d="M9 12h6M9 16h4" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h2 class="card-title">Build Your Plan</h2>
+            <p class="card-subtitle">Takes less than a minute · Fully personalised</p>
+          </div>
+          <div class="card-header-badge">Step 1 of 1</div>
+        </div>
+
+        <div class="form-body">
+          <!-- Basic Info -->
+          <div class="form-section-label">Basic Information</div>
+          <div class="form-grid three">
+            <div class="form-group">
+              <label class="form-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Age (years)
+              </label>
+              <input class="form-input" type="number" id="age" placeholder="e.g. 28" min="10" max="100" oninput="liveValidate('age')"/>
+              <span class="form-err" id="ageErr">Enter a valid age between 10–100</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Weight (kg)
+              </label>
+              <input class="form-input" type="number" id="weight" placeholder="e.g. 72" min="20" max="300" oninput="liveValidate('weight'); liveBMI()"/>
+              <span class="form-err" id="weightErr">Enter a valid weight (20–300 kg)</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M6 7l6-5 6 5M6 17l6 5 6-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Height (cm)
+              </label>
+              <input class="form-input" type="number" id="height" placeholder="e.g. 170" min="100" max="250" oninput="liveValidate('height'); liveBMI()"/>
+              <span class="form-err" id="heightErr">Enter a valid height (100–250 cm)</span>
+            </div>
+          </div>
+
+          <!-- Live BMI Preview -->
+          <div class="bmi-preview" id="bmiPreview">
+            <div class="bmi-preview-inner">
+              <span class="bmi-preview-label">Live BMI Preview</span>
+              <span class="bmi-preview-val" id="bmiPreviewVal">—</span>
+              <span class="bmi-preview-cat" id="bmiPreviewCat"></span>
+            </div>
+          </div>
+
+          <!-- Goal -->
+          <div class="form-section-label" style="margin-top:24px">Your Goal</div>
+          <div class="goal-grid">
+            <div class="goal-card" onclick="selectGoal(this,'Weight Loss')" data-goal="Weight Loss">
+              <div class="goal-icon">⚖️</div>
+              <div class="goal-name">Weight Loss</div>
+              <div class="goal-desc">Shed excess weight with a calorie-smart plan</div>
+            </div>
+            <div class="goal-card" onclick="selectGoal(this,'Belly Fat Reduction')" data-goal="Belly Fat Reduction">
+              <div class="goal-icon">🔥</div>
+              <div class="goal-name">Belly Fat</div>
+              <div class="goal-desc">Target core fat with metabolic-boosting foods</div>
+            </div>
+            <div class="goal-card" onclick="selectGoal(this,'Fitness')" data-goal="Fitness">
+              <div class="goal-icon">💪</div>
+              <div class="goal-name">Fitness &amp; Strength</div>
+              <div class="goal-desc">Build muscle and boost energy with protein-rich meals</div>
+            </div>
+          </div>
+          <input type="hidden" id="goal"/>
+          <span class="form-err" id="goalErr">Please select your goal</span>
+
+          <!-- Food Preference -->
+          <div class="form-section-label" style="margin-top:24px">Food Preference</div>
+          <div class="pref-grid">
+            <div class="pref-card" onclick="selectPref(this,'Vegetarian')">
+              <span class="pref-icon">🥦</span>
+              <div>
+                <div class="pref-name">Vegetarian</div>
+                <div class="pref-desc">Plant-based meals, dairy &amp; eggs included</div>
+              </div>
+            </div>
+            <div class="pref-card" onclick="selectPref(this,'Non-Vegetarian')">
+              <span class="pref-icon">🍗</span>
+              <div>
+                <div class="pref-name">Non-Vegetarian</div>
+                <div class="pref-desc">Includes chicken, fish, eggs &amp; meat</div>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="pref"/>
+          <span class="form-err" id="prefErr">Please select your food preference</span>
+
+          <!-- Activity Level (new feature) -->
+          <div class="form-section-label" style="margin-top:24px">Activity Level</div>
+          <div class="activity-grid">
+            <div class="activity-card" onclick="selectActivity(this,'Sedentary')">
+              <div class="activity-icon">🪑</div>
+              <div class="activity-name">Sedentary</div>
+              <div class="activity-desc">Little or no exercise</div>
+            </div>
+            <div class="activity-card" onclick="selectActivity(this,'Lightly Active')">
+              <div class="activity-icon">🚶</div>
+              <div class="activity-name">Light</div>
+              <div class="activity-desc">1–3 days/week</div>
+            </div>
+            <div class="activity-card" onclick="selectActivity(this,'Moderately Active')">
+              <div class="activity-icon">🏃</div>
+              <div class="activity-name">Moderate</div>
+              <div class="activity-desc">3–5 days/week</div>
+            </div>
+            <div class="activity-card" onclick="selectActivity(this,'Very Active')">
+              <div class="activity-icon">🏋️</div>
+              <div class="activity-name">Very Active</div>
+              <div class="activity-desc">6–7 days/week</div>
+            </div>
+          </div>
+          <input type="hidden" id="activity" value="Moderately Active"/>
+
+          <button class="btn-generate" onclick="handleGenerate()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Generate My Personalized Plan
+          </button>
+        </div>
+      </div>
+
+      <!-- LOADING -->
+      <div class="loading-card" id="loading">
+        <div class="loading-animation">
+          <div class="loading-ring"></div>
+          <div class="loading-ring-inner"></div>
+        </div>
+        <div class="loading-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <h3 class="loading-title">Crafting Your Perfect Plan…</h3>
+        <p class="loading-sub" id="loadingStep">Analysing your body metrics</p>
+        <div class="loading-progress">
+          <div class="loading-progress-bar" id="loadingBar"></div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div id="results" style="display:none">
+
+        <!-- Results Header -->
+        <div class="results-banner">
+          <div class="results-banner-content">
+            <div class="results-banner-icon">✦</div>
+            <div>
+              <h2 class="results-title">Your Personalized Plan is Ready!</h2>
+              <p class="results-meta" id="resMeta"></p>
+            </div>
+          </div>
+          <div class="results-actions">
+            <button class="btn-new-plan" onclick="resetForm()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 5l-7 7 7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              New Plan
+            </button>
+            <button class="btn-download" onclick="downloadPlan()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Download Plan
+            </button>
+            <button class="btn-share" onclick="sharePlan()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zM18 22a3 3 0 100-6 3 3 0 000 6zM8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Share
+            </button>
+          </div>
+        </div>
+
+        <!-- BMI + Calorie Cards Row -->
+        <div class="metrics-row">
+          <div class="metric-card bmi-metric">
+            <div class="metric-label">BMI Score</div>
+            <div class="metric-value" id="bmiVal">—</div>
+            <div class="metric-badge" id="bmiCat">—</div>
+            <div class="bmi-bar-wrap">
+              <div class="bmi-track"><div class="bmi-pin" id="bmiPin"></div></div>
+              <div class="bmi-ticks"><span>16</span><span>18.5</span><span>25</span><span>30</span><span>40</span></div>
+            </div>
+            <p class="metric-msg" id="bmiMsg"></p>
+          </div>
+          <div class="metric-card calorie-metric">
+            <div class="metric-label">Daily Calories (TDEE)</div>
+            <div class="metric-value green" id="calorieVal">—</div>
+            <div class="metric-badge green-badge" id="calorieLbl">—</div>
+            <div class="calorie-breakdown" id="calorieBreakdown"></div>
+            <p class="metric-msg" id="calorieMsg"></p>
+          </div>
+          <div class="metric-card water-metric">
+            <div class="metric-label">Daily Water Goal</div>
+            <div class="metric-value blue" id="waterVal">—</div>
+            <div class="metric-badge blue-badge">Litres / Day</div>
+            <div class="water-cups" id="waterCups"></div>
+            <p class="metric-msg">Stay hydrated for optimal metabolism and energy throughout your day.</p>
+          </div>
+        </div>
+
+        <!-- 7-Day Diet Plan -->
+        <div class="result-card" id="dietCard">
+          <div class="rc-header green-rc">
+            <div class="rc-icon">🥗</div>
+            <div>
+              <h3 class="rc-title">7-Day Diet Plan</h3>
+              <p class="rc-sub">Click each day to expand · Tailored to your goal &amp; preference</p>
+            </div>
+            <div class="rc-controls">
+              <button class="rc-btn" onclick="expandAll()">Expand All</button>
+              <button class="rc-btn" onclick="collapseAll()">Collapse</button>
+            </div>
+          </div>
+          <div class="rc-body">
+            <div class="days-container" id="daysContainer"></div>
+          </div>
+        </div>
+
+        <!-- Exercise Plan -->
+        <div class="result-card" id="exerciseCard">
+          <div class="rc-header amber-rc">
+            <div class="rc-icon">🏃</div>
+            <div>
+              <h3 class="rc-title">Exercise Plan</h3>
+              <p class="rc-sub">Recommended workouts for <span id="goalLabel"></span></p>
+            </div>
+          </div>
+          <div class="rc-body">
+            <div class="exercise-grid" id="exerciseGrid"></div>
+            <div class="weekly-schedule" id="weeklySchedule"></div>
+          </div>
+        </div>
+
+        <!-- Macro Split (new advanced feature) -->
+        <div class="result-card" id="macroCard">
+          <div class="rc-header teal-rc">
+            <div class="rc-icon">📊</div>
+            <div>
+              <h3 class="rc-title">Daily Macro Breakdown</h3>
+              <p class="rc-sub">Optimal protein, carbs &amp; fat ratios for your goal</p>
+            </div>
+          </div>
+          <div class="rc-body">
+            <div class="macro-grid" id="macroGrid"></div>
+          </div>
+        </div>
+
+        <!-- Foods to Avoid -->
+        <div class="result-card" id="avoidCard">
+          <div class="rc-header red-rc">
+            <div class="rc-icon">🚫</div>
+            <div>
+              <h3 class="rc-title">Foods to Avoid</h3>
+              <p class="rc-sub">Eliminate these for best results</p>
+            </div>
+          </div>
+          <div class="rc-body">
+            <div class="avoid-tags" id="avoidTags"></div>
+          </div>
+        </div>
+
+        <!-- Health Tips -->
+        <div class="result-card" id="tipsCard">
+          <div class="rc-header violet-rc">
+            <div class="rc-icon">💡</div>
+            <div>
+              <h3 class="rc-title">Health Tips</h3>
+              <p class="rc-sub">Daily habits that compound into big results</p>
+            </div>
+          </div>
+          <div class="rc-body">
+            <div class="tips-grid" id="tipsGrid"></div>
+          </div>
+        </div>
+
+        <!-- Progress Tracker (new feature) -->
+        <div class="result-card" id="progressCard">
+          <div class="rc-header coral-rc">
+            <div class="rc-icon">📈</div>
+            <div>
+              <h3 class="rc-title">Weekly Progress Checklist</h3>
+              <p class="rc-sub">Track your daily habits this week</p>
+            </div>
+          </div>
+          <div class="rc-body">
+            <div class="progress-tracker" id="progressTracker"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SAVED PLANS SECTION -->
+    <section class="page-section" id="sec-saved">
+      <div class="card">
+        <div class="card-header gradient-header">
+          <div class="card-header-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="white" stroke-width="2"/><path d="M17 21v-8H7v8M7 3v5h8" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h2 class="card-title">Saved Plans</h2>
+            <p class="card-subtitle">Your plans are stored locally and accessible anytime</p>
+          </div>
+        </div>
+        <div style="padding:24px" id="savedInner">
+          <div class="loading-text-sm">Loading your saved plans…</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WATER TRACKER SECTION -->
+    <section class="page-section" id="sec-tracker">
+      <div class="card">
+        <div class="card-header gradient-header-blue">
+          <div class="card-header-icon" style="background:linear-gradient(135deg,#0891b2,#22d3ee)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 5 9 5 14a7 7 0 0014 0C19 9 12 2 12 2z" stroke="white" stroke-width="2" stroke-linejoin="round" fill="rgba(255,255,255,0.2)"/></svg>
+          </div>
+          <div>
+            <h2 class="card-title">Daily Water Tracker</h2>
+            <p class="card-subtitle">Track your daily hydration — goal: 8 glasses</p>
+          </div>
+        </div>
+        <div class="tracker-body" id="waterTrackerBody">
+          <div class="water-tracker-ui">
+            <div class="water-display">
+              <div class="water-bottle">
+                <div class="water-fill" id="waterFill"></div>
+                <div class="water-label" id="waterCountLabel">0/8</div>
+              </div>
+              <div class="water-info">
+                <div class="water-big" id="waterGlasses">0</div>
+                <div class="water-unit">glasses today</div>
+                <div class="water-ml" id="waterML">0 ml consumed</div>
+                <div class="water-status" id="waterStatus">Start drinking! 💧</div>
+              </div>
+            </div>
+            <div class="water-cups-row" id="trackerCups"></div>
+            <div class="water-btn-row">
+              <button class="btn-water-add" onclick="addGlass()">+ Add Glass (250ml)</button>
+              <button class="btn-water-reset" onclick="resetWater()">Reset Day</button>
+            </div>
+            <div class="water-log" id="waterLog"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="page-section" id="sec-about">
+      <div class="card">
+        <div class="card-header gradient-header">
+          <div class="card-header-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="white" stroke-width="2"/><path d="M12 8v4M12 16h.01" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h2 class="card-title">About NutriAI</h2>
+            <p class="card-subtitle">AI-powered nutrition planning made accessible</p>
+          </div>
+        </div>
+        <div class="about-body">
+          <div class="about-hero">
+            <div class="about-logo-big">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+                <circle cx="32" cy="32" r="30" fill="url(#aboutGrad)"/>
+                <path d="M32 16 C26 16 22 21 22 27 C22 33 26 37 32 37 C38 37 42 33 42 27 C42 21 38 16 32 16Z" fill="white" opacity="0.95"/>
+                <path d="M32 37 C32 37 24 40.5 22 48 H42 C40 40.5 32 37 32 37Z" fill="white" opacity="0.75"/>
+                <circle cx="43" cy="22" r="8" fill="#fbbf24" opacity="0.95"/>
+                <path d="M43 17V27M38 22H48" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                <defs><linearGradient id="aboutGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0f4c2a"/><stop offset="60%" stop-color="#1a7a45"/><stop offset="100%" stop-color="#0d9488"/></linearGradient></defs>
+              </svg>
+            </div>
+            <div>
+              <h3 class="about-name">NutriAI</h3>
+              <p class="about-tagline">Smart Diet Planner</p>
+            </div>
+          </div>
+          <p class="about-desc">NutriAI is a free, AI-powered nutrition planning tool that generates fully personalised 7-day diet plans, calculates your BMI and daily calorie needs (TDEE), recommends exercises based on your goal, and provides science-backed health tips — all in seconds.</p>
+          <div class="features-grid">
+            <div class="feature-item"><div class="feature-icon green-fi">🥗</div><h4>7-Day Meal Plans</h4><p>Tailored to your goal and food preference</p></div>
+            <div class="feature-item"><div class="feature-icon blue-fi">📊</div><h4>BMI & TDEE Analysis</h4><p>Know your body metrics and daily calorie needs</p></div>
+            <div class="feature-item"><div class="feature-icon amber-fi">🏃</div><h4>Exercise Guide</h4><p>Goal-specific workouts with duration and frequency</p></div>
+            <div class="feature-item"><div class="feature-icon teal-fi">💧</div><h4>Water Tracker</h4><p>Daily hydration tracking with visual progress</p></div>
+            <div class="feature-item"><div class="feature-icon violet-fi">📈</div><h4>Progress Checklist</h4><p>Weekly habit tracker to keep you accountable</p></div>
+            <div class="feature-item"><div class="feature-icon red-fi">💾</div><h4>Save & Access Plans</h4><p>All plans stored locally — access anytime</p></div>
+          </div>
+          <div class="disclaimer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+            <p><strong>Disclaimer:</strong> NutriAI is for informational purposes only. Always consult a registered dietitian or healthcare professional before making significant changes to your diet or exercise routine.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <svg viewBox="0 0 32 32" fill="none" width="28" height="28"><circle cx="16" cy="16" r="14" fill="url(#footerGrad)"/><path d="M16 8C13 8 11 11 11 14C11 17 13 19 16 19C19 19 21 17 21 14C21 11 19 8 16 8Z" fill="white" opacity="0.95"/><path d="M16 19C16 19 11.5 21 10.5 25H21.5C20.5 21 16 19 16 19Z" fill="white" opacity="0.75"/><circle cx="22" cy="11" r="4" fill="#fbbf24" opacity="0.95"/><path d="M22 8.5V13.5M19.5 11H24.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/><defs><linearGradient id="footerGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0f4c2a"/><stop offset="100%" stop-color="#0d9488"/></linearGradient></defs></svg>
+        <span>NutriAI</span>
+      </div>
+      <p class="footer-copy">Built with ❤️ for better health · Always consult a healthcare professional before major dietary changes.</p>
+      <div class="footer-links">
+        <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+        <span>·</span>
+        <a href="#" onclick="switchTab('about')">About</a>
+        <span>·</span>
+        <a href="#" onclick="switchTab('generate')">Get Started</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
