@@ -199,7 +199,10 @@ async function handleGenerate() {
   const weight   = parseFloat(document.getElementById('weight').value);
   const height   = parseFloat(document.getElementById('height').value);
   const goal     = document.getElementById('goal').value;
-  const pref     = document.getElementById('pref').value;
+  let  pref     = document.getElementById('pref').value;
+  if(pref == "Mixed") {
+    pref = "Non-vegetarian";
+  }
   const activity = document.getElementById('activity').value || 'Moderately Active';
   const bmi      = calcBMI(weight, height);
   const tdee     = calcTDEE(weight, height, age, activity);
