@@ -163,11 +163,24 @@ function validate() {
       el.classList.remove('invalid'); err.classList.remove('show');
     }
   });
-  ['goal', 'pref'].forEach(id => {
-    const v = document.getElementById(id).value;
-    const err = document.getElementById(id + 'Err');
-    if (!v) { err.classList.add('show'); ok = false; } else { err.classList.remove('show'); }
-  });
+  const prefVal = document.getElementById('pref').value;
+
+if (!prefVal) {
+  document.getElementById('prefErr').classList.add('show');
+  ok = false;
+} else {
+  document.getElementById('prefErr').classList.remove('show');
+}
+
+const goalVal = document.getElementById('goal').value;
+
+if (!goalVal) {
+  document.getElementById('goalErr').classList.add('show');
+  ok = false;
+} else {
+  document.getElementById('goalErr').classList.remove('show');
+}
+
   return ok;
 }
 
