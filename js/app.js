@@ -201,7 +201,7 @@ async function handleGenerate() {
   const goal     = document.getElementById('goal').value;
   let  pref     = document.getElementById('pref').value;
   if(pref == "Mixed") {
-    pref = "Non-vegetarian";
+    pref = "Non-Vegetarian";
   }
   const activity = document.getElementById('activity').value || 'Moderately Active';
   const bmi      = calcBMI(weight, height);
