@@ -651,26 +651,28 @@ function showToast(msg) {
 }
 function downloadPDF() {
     const element = document.getElementById("diet-plan");
+
+    // Force full visibility
     const results = document.getElementById("results");
-
-    // 1. Force full visibility
     results.style.display = "block";
-    results.style.visibility = "visible";
     results.style.opacity = "1";
+    results.style.visibility = "visible";
 
-    // 2. Scroll to top (important)
+    // Scroll to top
     window.scrollTo(0, 0);
 
-    // 3. Wait for rendering
+    // Wait for full render
     setTimeout(() => {
         html2pdf().set({
-            margin: 0,
+            margin: 5,
             filename: 'NutriAI_Diet_Plan.pdf',
             image: { type: 'jpeg', quality: 1 },
             html2canvas: {
                 scale: 2,
                 useCORS: true,
-                scrollY: 0
+                scrollY: 0,
+                windowWidth: document.body.scrollWidth,
+                windowHeight: document.body.scrollHeight
             },
             jsPDF: {
                 unit: 'mm',
@@ -678,5 +680,5 @@ function downloadPDF() {
                 orientation: 'portrait'
             }
         }).from(element).save();
-    }, 1000); // wait 1 second
+    }, 1200); // IMPORTANT: wait longer
 }
