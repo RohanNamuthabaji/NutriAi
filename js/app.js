@@ -651,19 +651,32 @@ function showToast(msg) {
 }
 function downloadPDF() {
     const element = document.getElementById("diet-plan");
+    const results = document.getElementById("results");
 
-    if (!element) {
-        alert("PDF section not found!");
-        return;
-    }
+    // 1. Force full visibility
+    results.style.display = "block";
+    results.style.visibility = "visible";
+    results.style.opacity = "1";
 
-    const options = {
-        margin: 0.5,
-        filename: 'NutriAI_Diet_Plan.pdf',
-        image: { type: 'jpeg', quality: 1 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-    };
+    // 2. Scroll to top (important)
+    window.scrollTo(0, 0);
 
-    html2pdf().from(element).set(options).save();
+    // 3. Wait for rendering
+    setTimeout(() => {
+        html2pdf().set({
+            margin: 0,
+            filename: 'NutriAI_Diet_Plan.pdf',
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: {
+                scale: 2,
+                useCORS: true,
+                scrollY: 0
+            },
+            jsPDF: {
+                unit: 'mm',
+                format: 'a4',
+                orientation: 'portrait'
+            }
+        }).from(element).save();
+    }, 1000); // wait 1 second
 }
