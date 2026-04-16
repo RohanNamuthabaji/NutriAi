@@ -649,3 +649,21 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
+function downloadPDF() {
+    const element = document.getElementById("diet-plan");
+
+    if (!element) {
+        alert("PDF section not found!");
+        return;
+    }
+
+    const options = {
+        margin: 0.5,
+        filename: 'NutriAI_Diet_Plan.pdf',
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().from(element).set(options).save();
+}
